@@ -9,6 +9,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardOptions
 import androidx.compose.ui.unit.dp
 import com.vardapp.privacymessenger.matrix.RoomManager
+import androidx.compose.ui.text.input.KeyboardOptions
 
 @Composable
 fun ContactSearchScreen(onRoomCreated: (String) -> Unit, onBack: () -> Unit) {

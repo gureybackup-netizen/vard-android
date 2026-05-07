@@ -4,7 +4,8 @@ import android.util.Log
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.suspendCancellableCoroutine
+import kotlinx.coroutines.suspendCoroutine
+import kotlin.coroutines.resume
 
 class RoomManager private constructor() {
     private val sessionManager = SessionManager.instance
@@ -24,7 +25,7 @@ class RoomManager private constructor() {
     }
 
     suspend fun searchUser(matrixID: String): Boolean {
-        return suspendCancellableCoroutine { continuation ->
+        return suspendCoroutine { continuation ->
             Log.d("RoomManager", "Searching for user $matrixID (Modern SDK)")
             // Modern SDK Logic would go here
             continuation.resume(matrixID.startsWith("@") && matrixID.contains(":"))
@@ -32,8 +33,8 @@ class RoomManager private constructor() {
     }
 
     suspend fun createEncryptedDirectRoom(with: String): Any? {
-        val session = sessionManager.currentSession ?: return null
-        return suspendCancellableCoroutine { continuation ->
+        val session = sessionManager.currentSession
+        return suspendCoroutine { continuation ->
             Log.d("RoomManager", "Creating encrypted room with $with (Modern SDK)")
             // Modern SDK Logic would go here
             continuation.resume(null) // Placeholder
@@ -42,8 +43,6 @@ class RoomManager private constructor() {
 
     fun loadRooms() {
         // Modern SDK logic to get rooms from session
-        // val session = sessionManager.currentSession
-        // _rooms.value = session.rooms
     }
 
     fun startObservingRooms() {

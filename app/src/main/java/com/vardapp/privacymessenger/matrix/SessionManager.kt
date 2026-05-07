@@ -25,7 +25,7 @@ class SessionManager private constructor() {
 
     fun init(context: Context) {
         val masterKey = MasterKey.Builder(context)
-            .setKeyScheme(MasterKey.KeyScheme.AES256_SIV)
+            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
             .build()
 
         sharedPreferences = EncryptedSharedPreferences.create(
