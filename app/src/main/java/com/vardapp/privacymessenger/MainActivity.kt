@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
             }
 
             if (isLoggedIn) {
-                Text("Room List Screen (Block 3)")
+                AppNavigation(authViewModel) // Should navigate to room_list if logged in
             } else {
                 AppNavigation(authViewModel)
             }
