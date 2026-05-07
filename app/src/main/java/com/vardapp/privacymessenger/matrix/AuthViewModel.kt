@@ -7,12 +7,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.suspendCancellableCoroutine
-import org.matrix.androidsdk.MXSession
-import org.matrix.androidsdk.MXSession.SessionCallback
-import org.matrix.androidsdk.MXFileStore
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 
 class AuthViewModel(private val sessionManager: SessionManager) : ViewModel() {
 
@@ -33,15 +27,11 @@ class AuthViewModel(private val sessionManager: SessionManager) : ViewModel() {
             _isLoading.value = true
             _errorMessage.value = null
             try {
-                val result = suspendCancellableCoroutine<Boolean> { continuation ->
-                    // Mocking register call as Matrix SDK register is usually a REST call
-                    // In a real implementation, we would use MXRestClient.register
-                    Log.d("AuthViewModel", "Registering user $username")
-                    continuation.resume(true)
-                }
-                if (result) {
-                    login(username, password)
-                }
+                // Modern Rust SDK Register Flow
+                Log.d("AuthViewModel", "Registering user (Rust): $username")
+                // client.register(username, password)
+                // For now, simulating success
+                login(username, password)
             } catch (e: Exception) {
                 _errorMessage.value = "Registration failed: ${e.message}"
             } finally {
@@ -55,50 +45,19 @@ class AuthViewModel(private val sessionManager: SessionManager) : ViewModel() {
             _isLoading.value = true
             _errorMessage.value = null
             try {
-                val accessToken = suspendCancellableCoroutine<String> { continuation ->
-                    // Mocking login call
-                    Log.d("AuthViewModel", "Logging in user $username")
-                    continuation.resume("mock_access_token")
+                // Modern Rust SDK Login Flow
+                val result = MatrixManager.instance.login(username, password)
+                result.onSuccess {
+                    sessionManager.saveCredentials(username, password)
+                    _isLoggedIn.value = true
+                    _currentUserID.value = username
+                }.onFailure { e ->
+                    _errorMessage.value = mapMatrixError(e.message)
                 }
-                sessionManager.saveCredentials(username, password)
-                sessionManager.saveAccessToken(accessToken)
-                startSession()
             } catch (e: Exception) {
-                _errorMessage.value = mapMatrixError(e.message)
+                _errorMessage.value = "Login failed: ${e.message}"
             } finally {
                 _isLoading.value = false
-            }
-        }
-    }
-
-    fun startSession() {
-        viewModelScope.launch {
-            _isLoading.value = true
-            try {
-                val session = suspendCancellableCoroutine<MXSession> { continuation ->
-                    // In reality, we would initialize MXSession here
-                    // K7: enableCrypto() before start()
-                    // K9: MXFileStore for persistence
-                    Log.d("AuthViewModel", "Starting session")
-                    // Mocking session creation
-                    continuation.resume(MXSession.getInstance()) 
-                }
-                sessionManager.setSession(session)
-                _isLoggedIn.value = true
-                _currentUserID.value = session.userId
-            } catch (e: Exception) {
-                _errorMessage.value = "Session start failed: ${e.message}"
-            } finally {
-                _isLoading.value = false
-            }
-        }
-    }
-
-    fun restoreSession() {
-        viewModelScope.launch {
-            val creds = sessionManager.loadCredentials()
-            if (creds.first != null) {
-                startSession()
             }
         }
     }
@@ -109,12 +68,19 @@ class AuthViewModel(private val sessionManager: SessionManager) : ViewModel() {
         _currentUserID.value = null
     }
 
+    fun restoreSession() {
+        viewModelScope.launch {
+            val creds = sessionManager.loadCredentials()
+            if (creds.first != null) {
+                login(creds.first!!, creds.second!!)
+            }
+        }
+    }
+
     private fun mapMatrixError(error: String?): String {
-        return when (error) {
-            "M_USER_IN_USE" -> "Username is already taken"
-            "M_FORBIDDEN" -> "Access forbidden"
-            "M_LIMIT_EXCEEDED" -> "Too many requests"
-            "M_NOT_FOUND" -> "User not found"
+        return when {
+            error?.contains("M_USER_IN_USE") == true -> "Username is already taken"
+            error?.contains("M_FORBIDDEN") == true -> "Invalid credentials"
             else -> "An unexpected error occurred"
         }
     }

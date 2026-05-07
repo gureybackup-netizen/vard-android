@@ -11,19 +11,19 @@ import com.vardapp.privacymessenger.ui.AppNavigation
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         SessionManager.init(this)
         val authViewModel = AuthViewModel(SessionManager.instance)
-        
+
         setContent {
             var isLoggedIn by authViewModel.isLoggedIn.collectAsState()
-            
+
             LaunchedEffect(Unit) {
                 authViewModel.restoreSession()
             }
 
             if (isLoggedIn) {
-                AppNavigation(authViewModel) // Should navigate to room_list if logged in
+                AppNavigation(authViewModel)
             } else {
                 AppNavigation(authViewModel)
             }
