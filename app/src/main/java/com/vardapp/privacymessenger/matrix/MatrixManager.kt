@@ -2,10 +2,9 @@ package com.vardapp.privacymessenger.matrix
 
 import android.content.Context
 import android.util.Log
-import org.matrix.rustcomponents.sdk.*
 
 class MatrixManager private constructor() {
-    private var client: Client? = null
+    private var client: Any? = null
 
     companion object {
         val instance by lazy { MatrixManager() }

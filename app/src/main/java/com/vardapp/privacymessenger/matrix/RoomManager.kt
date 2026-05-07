@@ -29,7 +29,6 @@ class RoomManager private constructor() {
 
     suspend fun createEncryptedDirectRoom(with: String): Any? {
         // Placeholder for Modern SDK Logic
-        val session = sessionManager.currentSession
         Log.d("RoomManager", "Creating encrypted room with $with (Modern SDK)")
         return null
     }

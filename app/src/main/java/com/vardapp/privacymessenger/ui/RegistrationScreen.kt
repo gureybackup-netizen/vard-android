@@ -60,8 +60,8 @@ fun RegistrationScreen(viewModel: AuthViewModel, onNavigateToLogin: () -> Unit) 
             keyboardOptions = KeyboardOptions(autoCorrect = false, capitalization = KeyboardCapitalization.None)
         )
         
-        if (errorMessage != null) {
-            Text(text = errorMessage!!, color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(vertical = 8.dp))
+        errorMessage?.let {
+            Text(text = it, color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(vertical = 8.dp))
         }
         
         Spacer(modifier = Modifier.height(16.dp))

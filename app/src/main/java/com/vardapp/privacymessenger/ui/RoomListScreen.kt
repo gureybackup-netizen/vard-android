@@ -40,11 +40,10 @@ fun RoomListScreen(onNavigateToSearch: () -> Unit, onNavigateToChat: (String) ->
             }
         } else {
             LazyColumn(modifier = Modifier.padding(padding)) {
-                items(rooms) { room ->
-                    // Assuming room has a name property or similar in Modern SDK
+                items(rooms) { _ ->
                     ListItem(
-                        headlineContent = { Text("Room Name") }, // Placeholder
-                        supportingContent = { Text("Room ID") }, // Placeholder
+                        headlineContent = { Text("Room Name") },
+                        supportingContent = { Text("Room ID") },
                         modifier = Modifier.clickable { onNavigateToChat("room_id_placeholder") }
                     )
                 }

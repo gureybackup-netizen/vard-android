@@ -60,8 +60,8 @@ fun ContactSearchScreen(onRoomCreated: (String) -> Unit, onBack: () -> Unit) {
             Text(if (isLoading) "Searching..." else "Search")
         }
         
-        if (errorMessage != null) {
-            Text(text = errorMessage!!, color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(top = 8.dp))
+        errorMessage?.let {
+            Text(text = it, color = MaterialTheme.colorScheme.error, modifier = Modifier.padding(top = 8.dp))
         }
         
         if (isUserFound) {
