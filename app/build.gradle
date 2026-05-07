@@ -68,9 +68,8 @@ dependencies {
     // EncryptedSharedPreferences
     implementation 'androidx.security:security-crypto:1.1.0-alpha06'
 
-    // Dependencies (switching to standard repo, non-JitPack)
-    implementation 'org.matrix.androidsdk:matrix-android-sdk2:0.9.27'
-    implementation 'org.webrtc:google-webrtc:1.0.32006'
+    // Local Libs Integration (Bypassing JitPack)
+    implementation fileTree(dir: 'libs', include: ['*.aar'])
 
     // Testing
     testImplementation 'junit:junit:4.13.2'
