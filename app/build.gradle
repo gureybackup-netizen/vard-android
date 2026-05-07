@@ -68,9 +68,9 @@ dependencies {
     // EncryptedSharedPreferences
     implementation 'androidx.security:security-crypto:1.1.0-alpha06'
 
-    // Matrix SDK + WebRTC via JitPack
-    implementation 'com.github.matrix-org:matrix-android-sdk2:v1.5.26'
-    implementation 'com.github.webrtc-sdk:android:v125.6422.06'
+    // Matrix SDK + WebRTC
+    implementation 'com.github.matrix-org:matrix-android-sdk2:v1.6.50'
+    implementation 'org.webrtc:google-webrtc:1.0.32006'
 
     // Testing
     testImplementation 'junit:junit:4.13.2'
