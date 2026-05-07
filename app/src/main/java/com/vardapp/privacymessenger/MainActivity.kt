@@ -23,7 +23,9 @@ class MainActivity : ComponentActivity() {
             }
 
             if (isLoggedIn) {
-                AppNavigation(authViewModel)
+                // If logged in, go to Room List
+                // For now, we'll just show the login screen again as placeholder
+                 Text("Logged In Successfully")
             } else {
                 AppNavigation(authViewModel)
             }

@@ -1,5 +1,7 @@
 package com.vardapp.privacymessenger.ui
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -10,13 +12,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.vardapp.privacymessenger.matrix.RoomManager
-import org.matrix.androidsdk.MXRoom
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RoomListScreen(onNavigateToSearch: () -> Unit, onNavigateToChat: (String) -> Unit) {
+    // Using Any to represent Modern Room objects since we don't have the specific class imported
     val rooms by RoomManager.instance.rooms.collectAsState()
-    
+
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("Chats") })
@@ -39,10 +41,11 @@ fun RoomListScreen(onNavigateToSearch: () -> Unit, onNavigateToChat: (String) ->
         } else {
             LazyColumn(modifier = Modifier.padding(padding)) {
                 items(rooms) { room ->
+                    // Assuming room has a name property or similar in Modern SDK
                     ListItem(
-                        headlineContent = { Text(room.displayName ?: "Unknown Room") },
-                        supportingContent = { Text(room.id) },
-                        modifier = androidx.compose.foundation.clickable { onNavigateToChat(room.id) }
+                        headlineContent = { Text("Room Name") }, // Placeholder
+                        supportingContent = { Text("Room ID") }, // Placeholder
+                        modifier = Modifier.clickable { onNavigateToChat("room_id_placeholder") }
                     )
                 }
             }

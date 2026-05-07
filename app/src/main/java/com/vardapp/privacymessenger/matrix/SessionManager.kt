@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
-import org.matrix.androidsdk.MXSession
 
 class SessionManager private constructor() {
     private lateinit var sharedPreferences: SharedPreferences
-    var currentSession: MXSession? = null
+
+    // Modern Rust SDK Session Object (Placeholder)
+    // In a real implementation, this would be a `Session` object from `org.matrix.rustcomponents.sdk`
+    var currentSession: Any? = null
         private set
 
     companion object {
@@ -62,7 +64,8 @@ class SessionManager private constructor() {
         currentSession = null
     }
 
-    fun setSession(session: MXSession?) {
+    // Updated setSession to accept Modern SDK Session or null
+    fun setSession(session: Any?) {
         this.currentSession = session
     }
 }
