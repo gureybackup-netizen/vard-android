@@ -10,7 +10,6 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
-        maven { url 'https://maven.matrix.org' }
     }
 }
 rootProject.name = "PrivacyMessenger"
