@@ -69,8 +69,8 @@ dependencies {
     implementation 'androidx.security:security-crypto:1.1.0-alpha06'
 
     // Modern SDKs: Matrix Rust + LiveKit
-    implementation 'org.matrix.rustcomponents:sdk-android:0.3.0'
-    implementation 'io.livekit:livekit-android:2.0.0'
+    implementation 'org.matrix.rustcomponents:sdk-android:0.1.0'
+    implementation 'io.livekit:livekit-android:1.5.3'
 
     // Testing
     testImplementation 'junit:junit:4.13.2'
