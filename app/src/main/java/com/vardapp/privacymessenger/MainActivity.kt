@@ -3,25 +3,30 @@ package com.vardapp.privacymessenger
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
-import com.vardapp.privacymessenger.matrix.MatrixManager
-import kotlinx.coroutines.launch
+import com.vardapp.privacymessenger.matrix.AuthViewModel
+import com.vardapp.privacymessenger.matrix.SessionManager
+import com.vardapp.privacymessenger.ui.AppNavigation
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        SessionManager.init(this)
+        val authViewModel = AuthViewModel(SessionManager.instance)
+        
         setContent {
-            var status by remember { mutableStateOf("Initializing...") }
-            val scope = rememberCoroutineScope()
-
+            var isLoggedIn by authViewModel.isLoggedIn.collectAsState()
+            
             LaunchedEffect(Unit) {
-                status = MatrixManager.instance.testConnection()
+                authViewModel.restoreSession()
             }
 
-            Text(text = status)
+            if (isLoggedIn) {
+                Text("Room List Screen (Block 3)")
+            } else {
+                AppNavigation(authViewModel)
+            }
         }
     }
 }
