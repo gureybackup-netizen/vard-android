@@ -69,8 +69,8 @@ dependencies {
     implementation 'androidx.security:security-crypto:1.1.0-alpha06'
 
     // Matrix SDK + WebRTC via JitPack
-    implementation 'com.github.matrix-org:matrix-android-sdk2:v1.6.50'
-    implementation 'com.github.webrtc-sdk:android:1.0.32006'
+    implementation 'com.github.matrix-org:matrix-android-sdk2:v1.5.30'
+    implementation 'com.github.webrtc-sdk:android:v144.7559.05'
 
     // Testing
     testImplementation 'junit:junit:4.13.2'
