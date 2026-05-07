@@ -68,8 +68,9 @@ dependencies {
     // EncryptedSharedPreferences
     implementation 'androidx.security:security-crypto:1.1.0-alpha06'
 
-    // Local Libs Integration (Bypassing JitPack)
-    implementation fileTree(dir: 'libs', include: ['*.aar'])
+    // Modern SDKs: Matrix Rust + LiveKit
+    implementation 'org.matrix.rustcomponents:sdk-android:0.3.0'
+    implementation 'io.livekit:livekit-android:2.0.0'
 
     // Testing
     testImplementation 'junit:junit:4.13.2'

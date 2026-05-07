@@ -11,5 +11,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
+}
 rootProject.name = "PrivacyMessenger"
 include ':app'
