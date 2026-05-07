@@ -1,0 +1,3 @@
+-keep class org.matrix.androidsdk.** { *; }
+-keep class org.matrix.androidsdk.call.** { *; }
+-dontwarn org.matrix.androidsdk.**
