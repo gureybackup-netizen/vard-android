@@ -71,8 +71,9 @@ class AuthViewModel(private val sessionManager: SessionManager) : ViewModel() {
     fun restoreSession() {
         viewModelScope.launch {
             val creds = sessionManager.loadCredentials()
-            if (creds.first != null) {
-                login(creds.first!!, creds.second!!)
+            val (username, password) = creds
+            if (username != null && password != null) {
+                login(username, password)
             }
         }
     }

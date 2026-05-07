@@ -44,7 +44,8 @@ fun LoginScreen(viewModel: AuthViewModel, onNavigateToRegister: () -> Unit) {
             onValueChange = { password = it },
             label = { Text("Password") },
             modifier = Modifier.fillMaxWidth(),
-            singleLine = true
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(autoCorrect = false, capitalization = KeyboardCapitalization.None)
         )
         
         if (errorMessage != null) {

@@ -16,7 +16,6 @@ fun ContactSearchScreen(onRoomCreated: (String) -> Unit, onBack: () -> Unit) {
     var isUserFound by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(false) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
-    val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -34,7 +33,8 @@ fun ContactSearchScreen(onRoomCreated: (String) -> Unit, onBack: () -> Unit) {
             onValueChange = { matrixID = it },
             label = { Text("Matrix ID (e.g. @user:matrix.org)") },
             modifier = Modifier.fillMaxWidth(),
-            singleLine = true
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(autoCorrect = false, capitalization = KeyboardCapitalization.None)
         )
         
         Spacer(modifier = Modifier.height(16.dp))

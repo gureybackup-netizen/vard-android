@@ -4,7 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import com.vardapp.privacymessenger.matrix.AuthViewModel
+import com.vardapp.privacymessenger.matrix.RoomManager
 
 @Composable
 fun AppNavigation(authViewModel: AuthViewModel) {
@@ -25,9 +28,12 @@ fun AppNavigation(authViewModel: AuthViewModel) {
         }
         composable("contact_search") {
             ContactSearchScreen(
-                onRoomCreated = { matrixID -> 
-                    // In a real app, we would call RoomManager.createEncryptedDirectRoom
-                    navController.navigate("room_list") 
+                onRoomCreated = { matrixID ->
+                    // Call RoomManager to create encrypted room
+                    kotlinx.coroutines.GlobalScope.launch {
+                        RoomManager.instance.createEncryptedDirectRoom(matrixID)
+                    }
+                    navController.navigate("room_list")
                 },
                 onBack = { navController.popBackStack() }
             )

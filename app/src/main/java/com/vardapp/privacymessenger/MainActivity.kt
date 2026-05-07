@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import com.vardapp.privacymessenger.matrix.AuthViewModel
 import com.vardapp.privacymessenger.matrix.SessionManager
 import com.vardapp.privacymessenger.ui.AppNavigation
+import com.vardapp.privacymessenger.ui.RoomListScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,8 +24,11 @@ class MainActivity : ComponentActivity() {
                 authViewModel.restoreSession()
             }
 
-            if (isLoggedIn) {
-                 Text("Logged In Successfully")
+if (isLoggedIn) {
+                  RoomListScreen(
+                      onNavigateToSearch = { /* TODO */ },
+                      onNavigateToChat = { /* TODO */ }
+                  )
             } else {
                 AppNavigation(authViewModel)
             }
