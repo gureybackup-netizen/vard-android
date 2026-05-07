@@ -10,7 +10,6 @@ import androidx.compose.ui.text.input.KeyboardOptions
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vardapp.privacymessenger.matrix.AuthViewModel
-import androidx.compose.ui.text.input.KeyboardOptions
 
 @Composable
 fun LoginScreen(viewModel: AuthViewModel, onNavigateToRegister: () -> Unit) {

@@ -4,13 +4,11 @@ import android.util.Log
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.suspendCoroutine
 import kotlin.coroutines.resume
 
 class RoomManager private constructor() {
     private val sessionManager = SessionManager.instance
 
-    // Modern Rust SDK Rooms (Placeholder: List<Any> or List<Room>)
     private val _rooms = MutableStateFlow<List<Any>>(emptyList())
     val rooms: StateFlow<List<Any>> = _rooms.asStateFlow()
 
@@ -25,24 +23,20 @@ class RoomManager private constructor() {
     }
 
     suspend fun searchUser(matrixID: String): Boolean {
-        return suspendCoroutine { continuation ->
-            Log.d("RoomManager", "Searching for user $matrixID (Modern SDK)")
-            // Modern SDK Logic would go here
-            continuation.resume(matrixID.startsWith("@") && matrixID.contains(":"))
-        }
+        // Placeholder for Modern SDK Logic
+        Log.d("RoomManager", "Searching for user $matrixID (Modern SDK)")
+        return matrixID.startsWith("@") && matrixID.contains(":")
     }
 
     suspend fun createEncryptedDirectRoom(with: String): Any? {
+        // Placeholder for Modern SDK Logic
         val session = sessionManager.currentSession
-        return suspendCoroutine { continuation ->
-            Log.d("RoomManager", "Creating encrypted room with $with (Modern SDK)")
-            // Modern SDK Logic would go here
-            continuation.resume(null) // Placeholder
-        }
+        Log.d("RoomManager", "Creating encrypted room with $with (Modern SDK)")
+        return null
     }
 
     fun loadRooms() {
-        // Modern SDK logic to get rooms from session
+        // Modern SDK logic
     }
 
     fun startObservingRooms() {
